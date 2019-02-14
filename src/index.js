@@ -25,12 +25,6 @@ let NotFound = () => (
   </div>
 );
 
-let FilteredWeather = ({match: {params}}) => (
-    <div location={params.location} day={params.day} >
-     {params.location} & {params.day}
-    </div>
-)
-
 render(
   <Provider store={store}>
      <Router>

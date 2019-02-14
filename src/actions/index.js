@@ -1,6 +1,6 @@
-export const getWeather = (coords) => ({
+export const getWeather = (location) => ({
   type: 'GET_WEATHER',
-  coords: coords,
+  location: location,
 });
 
 export const getLocation = () => ({

@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'; 
+import { getWeather, getLocation } from '../actions/index';
 import PropTypes from 'prop-types';
 import deburr from 'lodash/deburr';
 import Autosuggest from 'react-autosuggest';
@@ -83,7 +84,6 @@ function getSuggestionValue(suggestion) {
 
 const styles = theme => ({
   root: {
-    height: 250,
     flexGrow: 1,
   },
   container: {
@@ -110,10 +110,14 @@ const styles = theme => ({
 });
 
 class IntegrationAutosuggest extends React.Component {
-  state = {
-    popper: '',
-    suggestions: [],
-  };
+  constructor(props) {
+    super(props);
+	this.state = {
+		single: '',
+		popper: '',
+		suggestions: [],
+	};
+  }
 
   handleSuggestionsFetchRequested = ({ value }) => {
     this.setState({
@@ -128,9 +132,9 @@ class IntegrationAutosuggest extends React.Component {
   };
 
   handleChange = name => (event, { newValue }) => {
-    //this.setState({
-    //  [name]: newValue,
-    //});
+    this.setState({
+      [name]: newValue,
+    });
   };
 
   render() {
@@ -151,9 +155,9 @@ class IntegrationAutosuggest extends React.Component {
           {...autosuggestProps}
           inputProps={{
             classes,
-            placeholder: 'Search a City',
-            value: this.props.city,
-            onChange: this.handleChange('city'),
+            placeholder: 'Search a country (start with a)',
+            value: this.state.single,
+            onChange: this.handleChange('single'),
           }}
           theme={{
             container: classes.container,
@@ -168,6 +172,39 @@ class IntegrationAutosuggest extends React.Component {
           )}
         />
       </div>
+        //<div className={classes.divider} />
+        // <Autosuggest
+          // {...autosuggestProps}
+          // inputProps={{
+            // classes,
+            // label: 'Label',
+            // placeholder: 'With Popper',
+            // value: this.state.popper,
+            // onChange: this.handleChange('popper'),
+            // inputRef: node => {
+              // this.popperNode = node;
+            // },
+            // InputLabelProps: {
+              // shrink: true,
+            // },
+          // }}
+          // theme={{
+            // suggestionsList: classes.suggestionsList,
+            // suggestion: classes.suggestion,
+          // }}
+          // renderSuggestionsContainer={options => (
+            // <Popper anchorEl={this.popperNode} open={Boolean(options.children)}>
+              // <Paper
+                // square
+                // {...options.containerProps}
+                // style={{ width: this.popperNode ? this.popperNode.clientWidth : null }}
+              // >
+                // {options.children}
+              // </Paper>
+            // </Popper>
+          // )}
+        // />
+      //</div>
     );
   }
 }
@@ -177,15 +214,14 @@ const mapStateToProps = (state) => ({
   coords: state.coords,
 })
 
-const mapDispatchToProps = (dispatch) => ({
-    onInputChange: (value) => {
-        dispatch(GET_WEATHER)
-    }
-})
+const mapDispatchToProps = {
+  getWeather: getWeather,
+  getLocation: getLocation,
+};
 
 IntegrationAutosuggest = connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(IntegrationAutosuggest)
 
 IntegrationAutosuggest.propTypes = {

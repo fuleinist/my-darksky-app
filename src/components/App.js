@@ -8,6 +8,7 @@ import WeatherList from '../containers/WeatherList'
 import Loading from '../containers/Loading'
 import '../App.css';
 
+
 class App extends Component {
     constructor(props) {
         super(props);
@@ -17,7 +18,7 @@ class App extends Component {
         };
     }
 
-  componentWillMount() {
+  componentWillMount()  {
         this.props.getWeather(this.props.match.params.location);
         this.props.getLocation(this.props.match.params.location);
   }
@@ -49,7 +50,7 @@ class App extends Component {
       } else {
             return (
             <div className="forecast">
-              <Searchbar />
+              <Searchbar city={this.props.match.params.location}/>
               {this.renderForecastedWeather()}
             </div>       
             );

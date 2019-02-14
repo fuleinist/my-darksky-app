@@ -19,7 +19,11 @@ const styles = theme => ({
     border: '1px solid black',
   },
   View: {
-      width:'100%',
+      width:'50%',
+  },  
+  Temperature: {
+      width: '50%',
+      float: 'right'
   },
   topBar: {
       position: 'absolute',
@@ -63,6 +67,11 @@ let WeatherList = ({ weather, classes, selectedday, city }) => {
                     icon={selectedday.icon.toUpperCase().split('-').join('_')}
                     autoplay={true} />
                 </Fade>
+		<Fade in={(weather !== null)}>
+		    <div className={classes.Temperature}>
+			 {(selectedday.temperatureLow + selectedday.temperatureLow)/2}
+		    </div>
+		</Fade>
                 <div className={classes.topBar}>                    
                     <span className={classes.topTitle}>{weekofDay(selectedday.time)}</span>
                 </div>

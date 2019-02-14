@@ -5,11 +5,12 @@ export const weekofDay = (time) => {
     return weekday[dayno];
 }
 
-export const getCoords = () => {
+//getCoords(fn.callback)
+export const getCoords = (callback) => {
   try {
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
-            handleGeolocationSuccess,
+            (pos) => {callback(pos)},
             handleGeolocationError,
             { enableHighAccuracy: true, timeout: 30000, maximumAge: 30000 },
           );
@@ -17,10 +18,6 @@ export const getCoords = () => {
       } catch (error) {
           return { error: error }
     }
-}
-
-const handleGeolocationSuccess = (position) => {
-    return position.coords;
 }
 
 const handleGeolocationError = (error) => {
