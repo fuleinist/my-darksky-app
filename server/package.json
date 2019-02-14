@@ -1,0 +1,21 @@
+{
+  "name": "dev-server",
+  "version": "0.0.1",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "google-places-autocomplete-service": "0.0.3",
+    "json-query": "^2.2.2",
+    "lodash": "^4.17.11",
+    "node-geocoder": "^3.22.0"
+  }
+}
