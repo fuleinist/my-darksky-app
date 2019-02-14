@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Skycons from 'react-skycons';
 import GridList from '@material-ui/core/GridList';
@@ -35,8 +34,8 @@ const styles = theme => ({
   },
 });
 
-let WeatherList = ({ weather, classes, forcastdays }) => {
-    if(weather) {
+let WeatherList = ({ weather, classes, forcastdays, loading }) => {
+    if(weather&&!loading) {
     return (
     <div className={classes.root}>
         <Fade in={(weather !== null)} >
@@ -66,7 +65,10 @@ let WeatherList = ({ weather, classes, forcastdays }) => {
 }
 
 const mapStateToProps = (state) => {
-  return {  weather: state.weather }
+  return {  
+	weather: state.weather,
+	loading: state.loading
+	}
 }
 
 WeatherList = connect(

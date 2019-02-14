@@ -4,9 +4,8 @@ const axios = require('axios');
 const _ = require('lodash');
 const bodyParser = require('body-parser');
 const config = require('./config');
-import cities from 'cities.json';
-import jsonQuery from 'json-query';
-import geoCoder from 'node-geocoder';
+
+const geoCoder = require('node-geocoder');
 
 var app = express();
 var server = require('http').createServer(app);
@@ -34,9 +33,9 @@ app.get('/api', function(req, res) {
 
 //This endpoint fetches data from the Dark Sky API.
 app.get('/api/forecast/', function(req, res) {
-  let lat   = req.query.latitude;
-  let long  = req.query.longitude;
-  let requestUrl = config.rootUrl + '/' + config.API_KEY + '/' + lat + ',' + long;
+  let lat   = req.query.lat;
+  let lng  = req.query.lng;
+  let requestUrl = config.rootUrl + '/' + config.API_KEY + '/' + lat + ',' + lng;
 
   axios.get(requestUrl)
        .then(function(data) {

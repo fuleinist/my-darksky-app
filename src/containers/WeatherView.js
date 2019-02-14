@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import Skycons from 'react-skycons';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
 
@@ -41,7 +40,6 @@ const styles = theme => ({
   bottomBar: {
       position: 'absolute',
       bottom: '0px',
-      width:'200px',
       height: '80px',
       width: '100%',
       background:
@@ -55,9 +53,9 @@ const styles = theme => ({
   }
 });
 
-let WeatherList = ({ weather, classes, selectedday, city }) => {
+let WeatherList = ({ weather, classes, selectedday, city, loading }) => {
 
-    if(weather&&city) {
+    if(weather&&city&&!loading) {
         return (
             <div key={selectedday.sunriseTime}  className={classes.root}>
                 <Fade in={(weather !== null)}>
@@ -86,6 +84,7 @@ let WeatherList = ({ weather, classes, selectedday, city }) => {
 
 const mapStateToProps = (state) => ({
   weather: state.weather,
+  loading: state.loading
 })
 
 WeatherList = connect(

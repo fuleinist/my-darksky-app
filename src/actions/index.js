@@ -3,6 +3,7 @@ export const getWeather = (location) => ({
   location: location,
 });
 
-export const getLocation = () => ({
+export const getLocation = (location) => ({
   type: 'GET_LOCATION',
+  location: location,
 });

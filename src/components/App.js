@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getWeather, getLocation } from '../actions/index';
-import logo from '../logo.svg';
 import Searchbar from '../containers/Searchbar'
 import WeatherView from '../containers/WeatherView'
 import WeatherList from '../containers/WeatherList'
@@ -27,11 +26,12 @@ class App extends Component {
   renderForecastedWeather = () => {
     if (this.props.weather && this.props.location) {
       const data = this.props.weather.daily.data.slice(0, 7);
-      const { city, country, latitude, longtidue } = (this.props.location)[0];
+      const { city, country, latitude, longtidue } = this.props.location;
       return (
         <div>
-            <WeatherView selectedday={data[0]} city={city + ', ' + country} latitude={latitude} longtidue={longtidue} day={this.props.match.params.day} />
-            <WeatherList forcastdays={data} city={city + ', ' + country} latitude={latitude} longtidue={longtidue} day={this.props.match.params.day} />
+			<Loading />
+            <WeatherView selectedday={data[0]} city={city} country={country} latitude={latitude} longtidue={longtidue} day={this.props.match.params.day} />
+            <WeatherList forcastdays={data} city={city} country={country}  vlatitude={latitude} longtidue={longtidue} day={this.props.match.params.day} />
         </div>
         );
     }
@@ -43,11 +43,7 @@ class App extends Component {
               <h3>{this.state.error}</h3>
             </div>
           );
-      } else if (!this.props.weather /*&& !this.props.location*/) {
-          return (
-            <Loading />
-          );
-      } else {
+      } else {  
             return (
             <div className="forecast">
               <Searchbar city={this.props.match.params.location}/>

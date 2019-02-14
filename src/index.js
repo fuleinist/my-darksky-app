@@ -1,7 +1,7 @@
 import React from 'react';
 import createSagaMiddleware from 'redux-saga';
 import { render } from 'react-dom';
-import { Route, Link, Switch, BrowserRouter as Router } from 'react-router-dom'
+import { Route, Switch, BrowserRouter as Router } from 'react-router-dom'
 import { createStore, applyMiddleware } from 'redux';
 import { Provider } from 'react-redux';
 import { logger } from 'redux-logger';

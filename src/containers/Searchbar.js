@@ -9,8 +9,8 @@ import parse from 'autosuggest-highlight/parse';
 import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
-import Popper from '@material-ui/core/Popper';
 import { withStyles } from '@material-ui/core/styles';
+
 import dummyapi from '../sagas/dummyapi'
 
 
@@ -114,7 +114,6 @@ class IntegrationAutosuggest extends React.Component {
     super(props);
 	this.state = {
 		single: '',
-		popper: '',
 		suggestions: [],
 	};
   }
@@ -135,6 +134,10 @@ class IntegrationAutosuggest extends React.Component {
     this.setState({
       [name]: newValue,
     });
+	let location = this.state.suggestions.find((cities) => (cities.city === newValue))
+	this.props.getWeather(location);
+	this.props.getLocation(location);
+
   };
 
   render() {
@@ -172,39 +175,6 @@ class IntegrationAutosuggest extends React.Component {
           )}
         />
       </div>
-        //<div className={classes.divider} />
-        // <Autosuggest
-          // {...autosuggestProps}
-          // inputProps={{
-            // classes,
-            // label: 'Label',
-            // placeholder: 'With Popper',
-            // value: this.state.popper,
-            // onChange: this.handleChange('popper'),
-            // inputRef: node => {
-              // this.popperNode = node;
-            // },
-            // InputLabelProps: {
-              // shrink: true,
-            // },
-          // }}
-          // theme={{
-            // suggestionsList: classes.suggestionsList,
-            // suggestion: classes.suggestion,
-          // }}
-          // renderSuggestionsContainer={options => (
-            // <Popper anchorEl={this.popperNode} open={Boolean(options.children)}>
-              // <Paper
-                // square
-                // {...options.containerProps}
-                // style={{ width: this.popperNode ? this.popperNode.clientWidth : null }}
-              // >
-                // {options.children}
-              // </Paper>
-            // </Popper>
-          // )}
-        // />
-      //</div>
     );
   }
 }
