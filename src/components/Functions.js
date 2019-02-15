@@ -20,6 +20,12 @@ export const getCoords = (callback) => {
     }
 }
 
+export const convertTemp = (fa) => {
+  let ce = (fa - 32) * 5 / 9
+  console.log(Math.round(ce))
+  return  Math.round(ce)
+}
+
 const handleGeolocationError = (error) => {
     if (error.code === 1) {
       return { error: 'Please enable permissions to access location and reload the page' };

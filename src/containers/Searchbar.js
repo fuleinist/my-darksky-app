@@ -14,7 +14,8 @@ import { withStyles } from '@material-ui/core/styles';
 import dummyapi from '../sagas/dummyapi'
 
 
-const suggestions =  dummyapi.suggestions
+const cities =  dummyapi.cities 
+let suggestions = Object.values(cities)
 
 function renderInputComponent(inputProps) {
   const { classes, inputRef = () => {}, ref, ...other } = inputProps;
@@ -137,7 +138,6 @@ class IntegrationAutosuggest extends React.Component {
 	let location = this.state.suggestions.find((cities) => (cities.city === newValue))
 	this.props.getWeather(location);
 	this.props.getLocation(location);
-
   };
 
   render() {

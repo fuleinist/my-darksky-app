@@ -6,7 +6,7 @@ export function* getWeather ({location}) {
   try {
 	  let json = dummyapi.weather, time = new Date();
       if(location) {
-		let lat = location.latitude,lng = location.longitude;
+		let lat = location.lat,lng = location.lon;
 		json = yield fetch(`http://localhost:8000/api/forecast/?lat=${lat}&lng=${lng}`).then(response => response.json(), );
 	  } else {
 //		let latitude = 0,longitude = 0
@@ -25,7 +25,6 @@ export function* getLocation({location}) {
       let json = (dummyapi.location)[0]
 	  if(location) {
 		  json = location;
-		  console.log(location);
 	  }
       //json = yield fetch(`http://localhost:8000/api/location?longitude=${query}`) .then(response => response.json(), );
       yield put({ type: "LOCATION_RECEIVED", location: json, });

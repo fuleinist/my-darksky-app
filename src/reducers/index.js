@@ -9,9 +9,11 @@ const reducer = (state = {}, action) => {
     case 'GET_LOCATION':
       return { ...state, loading: true }      
     case 'LOCATION_RECEIVED':
-      return { ...state, location: action.location , loading: false }
+      return { ...state, location: action.location , loading: true }
     case 'LOCATION_FETCH_FAILED':
       return { ...state, error: action, loading: false };
+    case 'SELECT_DAY':
+      return { ...state, day: action.day };
     default:
       return state;
   }

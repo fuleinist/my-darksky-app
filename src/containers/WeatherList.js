@@ -1,6 +1,8 @@
 import React from 'react';
+import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
+import { selectDay } from '../actions/index';
 import Skycons from 'react-skycons';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -18,6 +20,8 @@ const styles = theme => ({
     flexWrap: 'wrap',
     justifyContent: 'space-around',
     overflow: 'hidden',
+    border: '1px solid black',
+    margin: '10px',
     backgroundColor: theme.palette.background.paper,
   },
   gridList: {
@@ -25,8 +29,15 @@ const styles = theme => ({
     // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
     transform: 'translateZ(0)',
   },
+  gridListTile: {
+    border: '1px solid black',
+  },
+  icon: {
+    height:'70%',
+  },
   title: {
     color: theme.palette.primary.grey,
+
   },
   titleBar: {
     background:
@@ -34,29 +45,31 @@ const styles = theme => ({
   },
 });
 
-let WeatherList = ({ weather, classes, forcastdays, loading }) => {
+let WeatherList = ({ weather, classes, forcastdays, loading, selectDay }) => {
     if(weather&&!loading) {
     return (
     <div className={classes.root}>
         <Fade in={(weather !== null)} >
         <GridList className={classes.gridList} cols={7}>
         {forcastdays.map( tile =>  (
-        <GridListTile key={tile.sunriseTime} >
-            <Skycons
+        <GridListTile className={classes.gridListTile} key={tile.sunriseTime} >
+            <Link to={("/weather/London/" + weekofDay(tile.time))}>
+            <div className={classes.icon}><Skycons
                     color='black' 
-                    icon={tile.icon.toUpperCase().split('-').join('_')} />
+                    icon={tile.icon.toUpperCase().split('-').join('_')} /></div>
             <GridListTileBar
               title={weekofDay(tile.time)}
               classes={{
                 root: classes.titleBar,
                 title: classes.title,
-              }}
+              }}  
               actionIcon={
-                <IconButton>
+                <IconButton onClick = { () => console.log(weekofDay(tile.time))}>
                   <StarBorderIcon className={classes.title} />
                 </IconButton>
               }
             />
+            </Link>
           </GridListTile>
         ))}</GridList></Fade></div>);
     } else {
@@ -66,14 +79,20 @@ let WeatherList = ({ weather, classes, forcastdays, loading }) => {
 
 const mapStateToProps = (state) => {
   return {  
-	weather: state.weather,
-	loading: state.loading
+	 weather: state.weather,
+	 loading: state.loading,
+   day: state.day
 	}
 }
 
+const mapDispatchToProps = {
+  selectDay: selectDay,
+};
+
+
 WeatherList = connect(
   mapStateToProps,
-  null
+  mapDispatchToProps
 )(WeatherList)
 
 export default withStyles(styles)(WeatherList);

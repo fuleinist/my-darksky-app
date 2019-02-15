@@ -4,7 +4,7 @@ import Skycons from 'react-skycons';
 import { withStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
 
-import {weekofDay} from '../components/Functions';
+import {weekofDay, convertTemp} from '../components/Functions';
 
 
 const styles = theme => ({
@@ -16,13 +16,19 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     position: 'relative',
     border: '1px solid black',
+    margin: '10px',
+    fontFamily: '"Roboto","Helvetica","Arial","sans-serif"',
+    textAlign: 'center',
   },
   View: {
-      width:'50%',
+      width:'70%',
   },  
   Temperature: {
-      width: '50%',
-      float: 'right'
+      width: '30%',
+      float: 'right',
+      display: 'inline-block',
+      lineHeight: '5',
+      fontSize: '5rem',
   },
   topBar: {
       position: 'absolute',
@@ -53,7 +59,7 @@ const styles = theme => ({
   }
 });
 
-let WeatherList = ({ weather, classes, selectedday, city, loading }) => {
+let WeatherView = ({ weather, classes, selectedday, city, loading }) => {
 
     if(weather&&city&&!loading) {
         return (
@@ -65,11 +71,11 @@ let WeatherList = ({ weather, classes, selectedday, city, loading }) => {
                     icon={selectedday.icon.toUpperCase().split('-').join('_')}
                     autoplay={true} />
                 </Fade>
-		<Fade in={(weather !== null)}>
-		    <div className={classes.Temperature}>
-			 {(selectedday.temperatureLow + selectedday.temperatureLow)/2}
-		    </div>
-		</Fade>
+            		<Fade in={(weather !== null)}>
+            		    <div className={classes.Temperature}> 
+            			 {convertTemp((selectedday.temperatureLow + selectedday.temperatureLow)/2)}  &#8451;
+            		    </div>
+          		  </Fade>
                 <div className={classes.topBar}>                    
                     <span className={classes.topTitle}>{weekofDay(selectedday.time)}</span>
                 </div>
@@ -87,9 +93,9 @@ const mapStateToProps = (state) => ({
   loading: state.loading
 })
 
-WeatherList = connect(
+WeatherView = connect(
   mapStateToProps,
   null
-)(WeatherList)
+)(WeatherView)
 
-export default withStyles(styles)(WeatherList);
+export default withStyles(styles)(WeatherView);
