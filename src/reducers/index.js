@@ -12,8 +12,6 @@ const reducer = (state = {}, action) => {
       return { ...state, location: action.location , loading: true }
     case 'LOCATION_FETCH_FAILED':
       return { ...state, error: action, loading: false };
-    case 'SELECT_DAY':
-      return { ...state, day: action.day };
     default:
       return state;
   }

@@ -12,7 +12,7 @@
     "react-geolocated": "^2.4.1",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
-    "react-scripts": "2.1.4",
+    "react-scripts": "^2.1.5",
     "react-skycons": "^0.7.0",
     "redux-logger": "^3.0.6",
     "redux-saga": "^1.0.1"
@@ -34,7 +34,10 @@
   ],
   "description": "My weather forcast app using darksky and google geo coder",
   "main": "index.js",
-  "devDependencies": {},
+  "devDependencies": {
+    "babel-jest": "^24.1.0",
+    "jest": "^24.1.0"
+  },
   "author": "fuleinist",
   "license": "MIT"
 }

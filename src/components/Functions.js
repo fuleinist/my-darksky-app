@@ -22,7 +22,6 @@ export const getCoords = (callback) => {
 
 export const convertTemp = (fa) => {
   let ce = (fa - 32) * 5 / 9
-  console.log(Math.round(ce))
   return  Math.round(ce)
 }
 

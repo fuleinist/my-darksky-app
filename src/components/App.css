@@ -23,6 +23,11 @@
   color: #61dafb;
 }
 
+.forecast {
+    min-width:800px;
+    max-width:1240px;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

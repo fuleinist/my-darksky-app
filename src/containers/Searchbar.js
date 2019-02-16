@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux'; 
+import { Link } from 'react-router-dom';
 import { getWeather, getLocation } from '../actions/index';
 import PropTypes from 'prop-types';
 import deburr from 'lodash/deburr';
@@ -114,7 +115,7 @@ class IntegrationAutosuggest extends React.Component {
   constructor(props) {
     super(props);
 	this.state = {
-		single: '',
+		single: props.city,
 		suggestions: [],
 	};
   }
@@ -131,13 +132,13 @@ class IntegrationAutosuggest extends React.Component {
     });
   };
 
-  handleChange = name => (event, { newValue }) => {
+  handleChange = (name) => (event, { newValue }) => {
     this.setState({
       [name]: newValue,
     });
 	let location = this.state.suggestions.find((cities) => (cities.city === newValue))
 	this.props.getWeather(location);
-	this.props.getLocation(location);
+    
   };
 
   render() {
@@ -158,7 +159,7 @@ class IntegrationAutosuggest extends React.Component {
           {...autosuggestProps}
           inputProps={{
             classes,
-            placeholder: 'Search a country (start with a)',
+            placeholder: 'Search a city)',
             value: this.state.single,
             onChange: this.handleChange('single'),
           }}
@@ -168,21 +169,25 @@ class IntegrationAutosuggest extends React.Component {
             suggestionsList: classes.suggestionsList,
             suggestion: classes.suggestion,
           }}
-          renderSuggestionsContainer={options => (
-            <Paper {...options.containerProps} square>
-              {options.children}
+          renderSuggestion = { (suggestion) => {
+            return (
+            <Paper square open={Boolean(suggestion)}>
+                <Link to={'/weather/'+ suggestion.city + '/Monday'}>
+                    {suggestion.city}
+                </Link>
             </Paper>
-          )}
+            )}
+          }
         />
       </div>
     );
   }
 }
 
-const mapStateToProps = (state) => ({
-  city: state.city,
-  coords: state.coords,
-})
+// const mapStateToProps = (state, ownProps) => ({
+  // city: state.city,
+  // coords: state.coords,
+// })
 
 const mapDispatchToProps = {
   getWeather: getWeather,
@@ -190,7 +195,7 @@ const mapDispatchToProps = {
 };
 
 IntegrationAutosuggest = connect(
-  mapStateToProps,
+  null,
   mapDispatchToProps
 )(IntegrationAutosuggest)
 

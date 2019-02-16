@@ -16,12 +16,14 @@ const styles = theme => ({
     backgroundColor: theme.palette.background.paper,
     position: 'relative',
     border: '1px solid black',
+    paddingTop: '5px',
     margin: '10px',
     fontFamily: '"Roboto","Helvetica","Arial","sans-serif"',
     textAlign: 'center',
   },
   View: {
       width:'70%',
+      paddingTop:'5px',
   },  
   Temperature: {
       width: '30%',

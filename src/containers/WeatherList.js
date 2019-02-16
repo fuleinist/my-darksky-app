@@ -37,7 +37,9 @@ const styles = theme => ({
   },
   title: {
     color: theme.palette.primary.grey,
-
+  },
+  taggled: {
+    color: 'yellow'
   },
   titleBar: {
     background:
@@ -45,7 +47,7 @@ const styles = theme => ({
   },
 });
 
-let WeatherList = ({ weather, classes, forcastdays, loading, selectDay }) => {
+let WeatherList = ({ weather, classes, day, forcastdays, loading, city }) => {
     if(weather&&!loading) {
     return (
     <div className={classes.root}>
@@ -53,7 +55,7 @@ let WeatherList = ({ weather, classes, forcastdays, loading, selectDay }) => {
         <GridList className={classes.gridList} cols={7}>
         {forcastdays.map( tile =>  (
         <GridListTile className={classes.gridListTile} key={tile.sunriseTime} >
-            <Link to={("/weather/London/" + weekofDay(tile.time))}>
+            <Link to={("/weather/" + city + "/" + weekofDay(tile.time))}>
             <div className={classes.icon}><Skycons
                     color='black' 
                     icon={tile.icon.toUpperCase().split('-').join('_')} /></div>
@@ -64,8 +66,8 @@ let WeatherList = ({ weather, classes, forcastdays, loading, selectDay }) => {
                 title: classes.title,
               }}  
               actionIcon={
-                <IconButton onClick = { () => console.log(weekofDay(tile.time))}>
-                  <StarBorderIcon className={classes.title} />
+                <IconButton>
+                  <StarBorderIcon className={(day === weekofDay(tile.time))?classes.taggled:classes.title} />
                 </IconButton>
               }
             />
@@ -81,18 +83,11 @@ const mapStateToProps = (state) => {
   return {  
 	 weather: state.weather,
 	 loading: state.loading,
-   day: state.day
 	}
 }
 
-const mapDispatchToProps = {
-  selectDay: selectDay,
-};
-
-
 WeatherList = connect(
   mapStateToProps,
-  mapDispatchToProps
 )(WeatherList)
 
 export default withStyles(styles)(WeatherList);
