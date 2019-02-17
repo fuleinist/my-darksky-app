@@ -1,13 +1,12 @@
 /**
-* Global configuration file to store important urls and API_KEYS.
-* Ideally, the API_KEY would not be provided and a user would have to obtain   * their own key.
-* For ease of use, I am checking my personal API_KEY for Dark Sky.
+* Global configuration file to store important urls, params and API_KEYS.
 */
 var config = {
   rootUrl: 'https://api.darksky.net/forecast',
   API_KEY: '61bbaae2f63f32da32c845cdb2eea9a8',
+  units: 'auto',
   port: 8000,
-  geocodeUrl: 'http://maps.googleapis.com/maps/api/geocode/json?',
+  geocodeUrl: 'http://maps.googleapis.com/maps/api/geocode/json?',  //work in progress
 }
 
 module.exports = config;

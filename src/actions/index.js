@@ -3,6 +3,7 @@ export const getWeather = (location) => ({
   location: location,
 });
 
+//getLocation(location query) Work in Progress
 export const getLocation = (location) => ({
   type: 'GET_LOCATION',
   location: location,

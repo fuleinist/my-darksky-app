@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux';
 import { withStyles } from '@material-ui/core/styles';
-import { selectDay } from '../actions/index';
 import Skycons from 'react-skycons';
 import GridList from '@material-ui/core/GridList';
 import GridListTile from '@material-ui/core/GridListTile';
@@ -11,7 +10,7 @@ import Fade from '@material-ui/core/Fade';
 import IconButton from '@material-ui/core/IconButton';
 import StarBorderIcon from '@material-ui/icons/StarBorder';
 
-import {weekofDay} from '../components/Functions';
+import {weekofDay,convertTemp} from '../components/Functions';
 
 
 const styles = theme => ({
@@ -64,7 +63,8 @@ let WeatherList = ({ weather, classes, day, forcastdays, loading, city }) => {
               classes={{
                 root: classes.titleBar,
                 title: classes.title,
-              }}  
+              }}
+			  subtitle={convertTemp(tile.temperatureLow) + '° ' + convertTemp(tile.temperatureMax)+'°'}
               actionIcon={
                 <IconButton>
                   <StarBorderIcon className={(day === weekofDay(tile.time))?classes.taggled:classes.title} />

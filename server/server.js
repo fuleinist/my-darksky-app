@@ -35,8 +35,9 @@ app.get('/api', function(req, res) {
 app.get('/api/forecast/', function(req, res) {
   let lat   = req.query.lat;
   let lng  = req.query.lng;
-  let requestUrl = config.rootUrl + '/' + config.API_KEY + '/' + lat + ',' + lng;
-
+  let unit = (config.units)?'?units='+config.units:'';
+  let requestUrl = config.rootUrl + '/' + config.API_KEY + '/' + lat + ',' + lng + unit;
+  console.log(requestUrl)
   axios.get(requestUrl)
        .then(function(data) {
          res.status(200).json(data.data);

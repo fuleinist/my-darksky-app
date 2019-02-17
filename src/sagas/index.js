@@ -1,15 +1,22 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
-import dummyapi from './dummyapi'
+import { dummyapi } from './dummyapi'
 
 export function* getWeather ({location}) {
+  const config = {
+	  server_url: process.env.REACT_APP_SERVER_URL,
+      is_dev: process.env.REACT_APP_ENV === 'dev',
+  };
   try {
-	  let json = dummyapi.weather, time = new Date();
+	  let json = dummyapi.weather;
       if(location) {
             if(!navigator.onLine&&localStorage.getItem('weather')) {
+				console.log(localStorage.getItem('weather').json())
                 json = localStorage.getItem('weather').json();
             } else {
                 let lat = location.lat,lng = location.lon;
-                yield fetch(`http://localhost:8000/api/forecast/?lat=${lat}&lng=${lng}`).then(response => response.json(), );
+				const api_path = config.is_dev?`api/forecast/`:``
+				const coords_query = config.is_dev?`?lat=${lat}&lng=${lng}`:`${lat},${lng}?units=auto`
+                json = yield fetch( config.server_url + api_path + coords_query).then(response => response.json(), );
                 localStorage.setItem('weather', json);
             }
       } else {

@@ -4,7 +4,7 @@ import Skycons from 'react-skycons';
 import { withStyles } from '@material-ui/core/styles';
 import Fade from '@material-ui/core/Fade';
 
-import {weekofDay, convertTemp} from '../components/Functions';
+import {weekofDay, convertTemp, Capword} from '../components/Functions';
 
 
 const styles = theme => ({
@@ -62,7 +62,7 @@ const styles = theme => ({
 });
 
 let WeatherView = ({ weather, classes, selectedday, city, loading }) => {
-
+	let deg = (weather.flags.units==='us')?'℉':'℃'
     if(weather&&city&&!loading) {
         return (
             <div key={selectedday.sunriseTime}  className={classes.root}>
@@ -75,14 +75,14 @@ let WeatherView = ({ weather, classes, selectedday, city, loading }) => {
                 </Fade>
             		<Fade in={(weather !== null)}>
             		    <div className={classes.Temperature}> 
-            			 {convertTemp((selectedday.temperatureLow + selectedday.temperatureLow)/2)}  &#8451;
+            			 {convertTemp((selectedday.temperatureMax + selectedday.temperatureLow)/2) + deg}
             		    </div>
           		  </Fade>
                 <div className={classes.topBar}>                    
                     <span className={classes.topTitle}>{weekofDay(selectedday.time)}</span>
                 </div>
                 <div className={classes.bottomBar}>                    
-                    <span className={classes.bottomTitle}>{( city + ' ' + selectedday.summary ) }</span>
+                    <span className={classes.bottomTitle}>{( Capword(city) + ' - ' + selectedday.summary ) }</span>
                 </div>                
             </div> )
     } else {

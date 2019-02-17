@@ -12,11 +12,9 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 
-import dummyapi from '../sagas/dummyapi'
+import {cities} from '../sagas/dummyapi'
 
-
-const cities =  dummyapi.cities 
-let suggestions = Object.values(cities)
+let suggestions = Object.keys(cities).map(itm => cities[itm]);
 
 function renderInputComponent(inputProps) {
   const { classes, inputRef = () => {}, ref, ...other } = inputProps;
@@ -38,30 +36,33 @@ function renderInputComponent(inputProps) {
   );
 }
 
-function renderSuggestion(suggestion, { query, isHighlighted }) {
+const renderSuggestion = (suggestion,{ query, isHighlighted }) => {
   const matches = match(suggestion.city, query);
   const parts = parse(suggestion.city, matches);
 
   return (
     <MenuItem selected={isHighlighted} component="div">
       <div>
-        {parts.map((part, index) =>
-          part.highlight ? (
-            <span key={String(index)} style={{ fontWeight: 500 }}>
+	  	<Link to={'/weather/'+ suggestion.city + '/Monday'} style={{textDecoration: 'none',fontFamily: '"Roboto","Helvetica","Arial","sans-serif"',fontSize: '2rem',color: 'inherit',}}>
+        {parts.map((part, index) => {
+          return part.highlight ? (
+            <span key={String(index)} style={{ fontWeight: 600,color: 'red' }}>
               {part.text}
             </span>
           ) : (
             <strong key={String(index)} style={{ fontWeight: 300 }}>
               {part.text}
             </strong>
-          ),
+          )
+		}
         )}
+		</Link>
       </div>
     </MenuItem>
   );
 }
 
-function getSuggestions(value) {
+const getSuggestions = (value) => {
   const inputValue = deburr(value.trim()).toLowerCase();
   const inputLength = inputValue.length;
   let count = 0;
@@ -80,13 +81,16 @@ function getSuggestions(value) {
       });
 }
 
-function getSuggestionValue(suggestion) {
+const getSuggestionValue = (suggestion) => {
   return suggestion.city;
 }
 
 const styles = theme => ({
   root: {
     flexGrow: 1,
+  },
+  input: {  
+	  fontSize: '2rem',
   },
   container: {
     position: 'relative',
@@ -105,9 +109,6 @@ const styles = theme => ({
     margin: 0,
     padding: 0,
     listStyleType: 'none',
-  },
-  divider: {
-    height: theme.spacing.unit * 2,
   },
 });
 
@@ -169,15 +170,11 @@ class IntegrationAutosuggest extends React.Component {
             suggestionsList: classes.suggestionsList,
             suggestion: classes.suggestion,
           }}
-          renderSuggestion = { (suggestion) => {
-            return (
-            <Paper square open={Boolean(suggestion)}>
-                <Link to={'/weather/'+ suggestion.city + '/Monday'}>
-                    {suggestion.city}
-                </Link>
+          renderSuggestionsContainer={options => (
+            <Paper {...options.containerProps} square>
+              {options.children}
             </Paper>
-            )}
-          }
+		  )}
         />
       </div>
     );

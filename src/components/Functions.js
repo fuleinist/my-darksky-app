@@ -5,13 +5,21 @@ export const weekofDay = (time) => {
     return weekday[dayno];
 }
 
-//getCoords(fn.callback)
+//getCoords(fn.callback) Work in Progress
 export const getCoords = (callback) => {
   try {
       if (navigator.geolocation) {
           navigator.geolocation.getCurrentPosition(
             (pos) => {callback(pos)},
-            handleGeolocationError,
+            (err) => {
+				if (err.code === 1) {
+					  return { error: 'Please enable permissions to access location and reload the page' };
+					} else if (err.code === 2 && err.message.match(/^Network location provider at 'https:\/\/www.googleapis.com\/' : Returned error code 403.$/)) {
+					  return { error: 'Seems like the internal service for geolocation is down. Please try in a few minutes!' };
+					} else {
+					  return { error: 'Looks like something went wrong! Please refresh your browser...' };
+					}
+				},
             { enableHighAccuracy: true, timeout: 30000, maximumAge: 30000 },
           );
       }
@@ -20,17 +28,13 @@ export const getCoords = (callback) => {
     }
 }
 
-export const convertTemp = (fa) => {
-  let ce = (fa - 32) * 5 / 9
+export const convertTemp = (temp) => {
+  let ce = temp
   return  Math.round(ce)
 }
 
-const handleGeolocationError = (error) => {
-    if (error.code === 1) {
-      return { error: 'Please enable permissions to access location and reload the page' };
-    } else if (error.code === 2 && error.message.match(/^Network location provider at 'https:\/\/www.googleapis.com\/' : Returned error code 403.$/)) {
-      return { error: 'Seems like the internal service for geolocation is down. Please try in a few minutes!' };
-    } else {
-      return { error: 'Looks like something went wrong! Please refresh your browser...' };
-    }
+export const Capword = (word) => {
+  let upper = word.charAt(0).toUpperCase() + word.substr(1);
+  return  upper
 }
+
