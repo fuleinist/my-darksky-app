@@ -1,4 +1,21 @@
-My weather forcast app using darksky and google geo coder
+My weather forcast app using darksky api and (WIP)google geo coder
+
+A weather forcast app that implements the Dark Sky API using react redux saga. You can review the follow the build instructions for local use.
+
+The app uses a express server to bypass the Cross Origin Resource Sharing (CORS) issue for development and testing
+
+### Build Instructions
+
+You can also clone this repository to your computer by pasting 
+`git clone git@github.com:fuleinist/my-darksky-app.git` in a terminal window
+
+. Once that is done, please follow these steps:
+- `npm install --save` (this will install the dependencies)
+- `npm test` (to ensure the app is successfully passing tests and linting)
+-  Move to /server folder and run `npm test` (this serves the express server on localhost:8000)
+- `npm start` (this serves the app on localhost:3000)
+
+<hr />
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -38,33 +55,3 @@ If you aren’t satisfied with the build tool and configuration choices, you can
 Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
 
 You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
