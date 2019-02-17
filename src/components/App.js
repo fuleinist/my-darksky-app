@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Switch, BrowserRouter as Router } from 'react-router-dom';
+import { Route, Switch, Redirect, BrowserRouter as Router } from 'react-router-dom';
 import Main from './Main';
 import './App.css';
 import createSagaMiddleware from 'redux-saga';
@@ -31,7 +31,7 @@ class App extends Component {
 		<Provider store={store}>
 			 <Router>
 			   <Switch>
-				<Route exact path="/" component={NotFound}  />
+				<Route exact path="/" component={() => <Redirect to="/weather/Sydney/Today" /> }  />
 				<Route exact path="/weather/:location" component={Main} />
 				<Route path="/weather/:location/:day" component={Main} />
 				<Route path="*" component={NotFound}/>
