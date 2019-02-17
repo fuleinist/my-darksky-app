@@ -1,5 +1,5 @@
 import { put, takeLatest, all } from 'redux-saga/effects';
-import { dummyapi } from './dummyapi'
+import { dummyapi } from './api'
 
 export function* getWeather ({location}) {
   const config = {

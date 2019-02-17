@@ -34,7 +34,7 @@ export const convertTemp = (temp) => {
 }
 
 export const Capword = (word) => {
-  let upper = word.charAt(0).toUpperCase() + word.substr(1);
+  let upper = word.charAt(0).toUpperCase() + word.substr(1).toLowerCase();
   return  upper
 }
 

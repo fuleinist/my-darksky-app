@@ -12,7 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import MenuItem from '@material-ui/core/MenuItem';
 import { withStyles } from '@material-ui/core/styles';
 
-import {cities} from '../sagas/dummyapi'
+import {cities} from '../sagas/api'
 
 let suggestions = Object.keys(cities).map(itm => cities[itm]);
 

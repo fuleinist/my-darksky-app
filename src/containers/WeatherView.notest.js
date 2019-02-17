@@ -10,7 +10,7 @@ import { logger } from 'redux-logger';
 import reducer from '../reducers';
 import rootSaga from '../sagas';
 
-import dummyapi from '../sagas/dummyapi'
+import {dummyapi} from '../sagas/api'
 
 const sagaMiddleware = createSagaMiddleware();
 
@@ -24,7 +24,11 @@ sagaMiddleware.run(rootSaga);
 Enzyme.configure({ adapter: new Adapter() });
 
 it('allows us to set props', () => {
-    const wrapper = Enzyme.mount(<Provider store={store}><WeatherView city="Sydney" weather=dummyapi.weather /></Provider>);
+    const wrapper = Enzyme.mount(
+		<Provider store={store}>
+			<WeatherView city="Sydney" weather={dummyapi.weather} />
+		</Provider>
+	);
     expect(wrapper.props().city).to.equal('Sydney');
     wrapper.setProps({ city: 'Adelaide' });
     expect(wrapper.props().city).to.equal('Adelaide');

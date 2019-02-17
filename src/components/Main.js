@@ -8,7 +8,7 @@ import WeatherList from '../containers/WeatherList'
 import Loading from '../containers/Loading'
 
 import {weekofDay, Capword} from '../components/Functions';
-import {cities} from '../sagas/dummyapi'
+import {cities} from '../sagas/api'
 
 const citties_arr = Object.values(cities)
 
@@ -18,7 +18,6 @@ class Main extends Component {
         this.state = {
           coords: citties_arr.find((cities) => cities.city === (Capword(this.props.match.params.location))),
           error: '',
-          term: ''
         };
     }
 
