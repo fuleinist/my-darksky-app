@@ -31,10 +31,11 @@ class Main extends Component {
     // Renders the functional components to display the data
     renderForecastedWeather = () => {
 		if (this.props.weather && this.state.coords!==null) {
+	      const selday =  this.props.match.params.day?this.props.match.params.day:'Today';
 		  const data = this.props.weather.daily.data.slice(0, 7);
 		  const mapdays = data.map((x,index) => ({id: index, time: x.time, day: weekofDay(x.time)}))
-		  let dayno = mapdays.find(x => (x.day === Capword(this.props.match.params.day)));
-		  if(Capword(this.props.match.params.day)==='Today') dayno = ({id: 0, time: data[0].time, day: weekofDay(data[0].time)})
+		  let dayno = mapdays.find(x => (x.day === Capword(selday)));
+		  if(Capword(selday)==='Today') dayno = ({id: 0, time: data[0].time, day: weekofDay(data[0].time)})
 		  const city = this.props.match.params.location;
 		  return (
 			<div>

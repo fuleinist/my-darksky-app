@@ -15,6 +15,24 @@ You can also clone this repository to your computer by pasting
 -  Move to /server folder and run `npm test` (this serves the express server on localhost:8000)
 - `npm start` (this serves the app on localhost:3000)
 
+### Routing
+
+- Display a weather forecast by location 
+	Expected URL: /weather/:location
+	Example URL: /weather/( sydney | brisbane ) 
+
+- Display a weather forecast by location filtered by day
+	Expected URL : /weather/:location/:weekday
+	Example URL: /weather/:location/( monday | tuesday | etc .. )
+
+- Display a weather forecast for today
+	Expected URL: /weather/:location/today
+	Example URL: weather/sydney/today
+
+### Interactions
+- Search and Select World cities using Autocomplete
+- Press days on WeatherList to swtich between day
+
 <hr />
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).

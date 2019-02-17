@@ -32,7 +32,8 @@ class App extends Component {
 			 <Router>
 			   <Switch>
 				<Route exact path="/" component={NotFound}  />
-				<Route exact path="/weather/:location/:day" component={Main} />
+				<Route exact path="/weather/:location" component={Main} />
+				<Route path="/weather/:location/:day" component={Main} />
 				<Route path="*" component={NotFound}/>
 				</Switch>
 			 </Router>
